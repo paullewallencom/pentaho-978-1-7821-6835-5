@@ -1,0 +1,30 @@
+column_chart_query:
+{ $unwind : "$event_data" },
+{ $group : { _id : "$event_data.event", event_count : { $sum : 1 } } },
+{$sort:{event_count: -1}}
+
+pie_chart_query:
+{ $unwind : "$event_data" },
+{ $group : { _id : "$browser", event_count : { $sum : 1 } } },
+{$sort:{event_count: -1}}
+
+referringurl_prompt:
+{$group: {_id:"$referring_url"}},
+{$sort:{_id:1}}
+
+adding parameters to report queries:
+{ $match : {referring_url : "${ReferringURLParam}"} },
+{ $unwind : "$event_data" },
+{ $group : { _id : "$browser", event_count : { $sum : 1 } } },
+{$sort:{event_count: -1}}
+
+{ $match : {referring_url : "${ReferringURLParam}"}},
+{ $unwind : "$event_data" },
+{ $group : { _id : "$event_data.event", event_count : { $sum : 1 } } },
+{$sort:{event_count: -1}}
+
+{ $match : {referring_url : "${ReferringURLParam}"}},
+{ $unwind : "$event_data" },
+{ $group : { _id : "$browser", event_count : { $sum : 1 } } },
+{$sort:{event_count: -1}} 
+

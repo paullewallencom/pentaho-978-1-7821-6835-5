@@ -1,0 +1,2 @@
+db.test.save ( { abc: 1 } )
+db.test.find ()

@@ -1,0 +1,25 @@
+metric_summary_query:
+{ $unwind : "$event_data" },
+{ $group : { 
+	_id: 1, 
+	Visits : {$sum: { $cond: [ { $eq: [ "$event_data.event", "Visited Site" ]},1,0]}},
+	Offers  : {$sum: { $cond: [ { $eq: [ "$event_data.event", "Signup Free Offer" ]},1,0]}},
+	Leads : {$sum: { $cond: [ { $eq: [ "$event_data.event", "Completed Lead Form" ]},1,0]}},
+	Purchases : {$sum: { $cond: [ { $eq: [ "$event_data.event", "Added Item To Cart" ]},1,0]}},
+	Total_Events: {$sum: 1}
+}}}
+
+Header Message Label:
+$(Visits, number, #,###) visits and$(Leads, number, #,###) leads generated$(Purchases, number, #,###) total purchases!
+
+Calculated Values:
+=[Visits]/[Visits]
+
+=[Offers]/[Visits]
+
+=[Leads]/[Visits]
+
+=[Purchases]/[Visits]
+
+
+

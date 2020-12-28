@@ -1,0 +1,34 @@
+db.runCommand( { count: ‘sessions’ } )
+
+db.sessions.find ()
+
+db.sessions.find ( {browser: ‘Chrome’} )
+
+db.sessions.find ( {browser: ‘Chrome’}, {id_session: 1, browser: 1} )
+
+db.sessions.find ( { browser: ‘Chrome’, duration_session: {$gte: 18} } )
+
+db.sessions.find ( {$or: [ { browser: ‘Chrome’}, {duration_session: {$gte: 18} } ]})
+
+db.sessions_events.find ( {“event_data.event ”: ‘Added Item To Cart’})
+
+db.sessions_events.find ( {“event_data.event”: [ ‘Visited Site’, ‘Watched Video’ ] } )
+
+db.sessions_events.find ( {“event_data.event”: {$all: [ ‘Visited Site’, ‘Watched Video’ ] } } )
+
+db.sessions_events.find ()
+
+db.sessions_events.find ( {“event_data.event”: {$all: [‘Added Item To Cart’, ‘Signup Free Offer’, ‘Watched Video’] } } )
+
+db.runCommand ( {count: ‘sessions_events’,
+query: {“event_data.event”: {$all: [‘Added Item To Cart’, ‘Signup Free Offer’, ‘Watched Video”] } } })
+
+
+
+
+
+
+
+
+
+
